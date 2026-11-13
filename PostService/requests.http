@@ -1,0 +1,55 @@
+﻿### Get all postings
+GET http://localhost:5050/postings
+
+### Get posting by non-existing id
+GET http://localhost:5050/postings/999
+
+### Create new posting
+# @name create
+POST http://localhost:5050/postings
+Content-Type: application/json
+
+{
+  "from": "Ivan",
+  "to": "Olena",
+  "content": "Documents",
+  "deliveryType": "Department",
+  "weight": 0.5,
+  "width": 20,
+  "height": 15,
+  "depth": 2,
+  "value": 100
+}
+
+### Get all postings after creation
+GET http://localhost:5050/postings
+
+### Get created posting before update
+GET http://localhost:5050/postings/{{create.response.body.$.id}}
+
+### Update created posting
+PUT http://localhost:5050/postings/{{create.response.body.$.id}}
+Content-Type: application/json
+
+{
+  "from": "Ivan",
+  "to": "Olena",
+  "id": {{create.response.body.$.id}},
+  "content": "Documents (updated)",
+  "deliveryType": "Courier",
+  "weight": 0.6,
+  "width": 20,
+  "height": 15,
+  "depth": 2,
+  "value": 100,
+  "price": 20
+}
+
+### Get updated posting
+GET http://localhost:5050/postings/{{create.response.body.$.id}}
+
+### Delete created posting
+DELETE http://localhost:5050/postings/{{create.response.body.$.id}}
+
+### Get deleted posting
+GET http://localhost:5050/postings/{{create.response.body.$.id}}
